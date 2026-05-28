@@ -48,7 +48,7 @@ def state_key(s):
 
 
 def link(url, text):
-    return f'<a href="{url}">{text}</a>' if text else ""
+    return f'<a href="{url}" target="_blank">{text}</a>' if text else ""
 
 
 def cell(v, style):
@@ -74,7 +74,7 @@ def main():
     sth = "border:1px solid #999;padding:6px;background:#f2f2f2"
     std = "border:1px solid #999;padding:6px"
 
-    data = resolve_refs(json.load(sys.stdin))
+    data = resolve_refs(json.loads(sys.stdin.buffer.read().decode("utf-8")))
 
     rows = []
     for t in data:
