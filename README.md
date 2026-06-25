@@ -4,7 +4,7 @@ A repository for automating sprint review preparation using GitHub Copilot CLI a
 
 ## What it does
 
-Given a list of task IDs, Copilot fetches the tasks from the Skyline API and generates a `sprint-review.html` file containing one table per product, ready for copy-paste into PowerPoint.
+Given a list of task IDs, Copilot fetches the tasks from the Skyline API and generates an `index.html` file containing one slide-like section per product, ready for copy-paste into PowerPoint.
 
 Each table includes: Task (linked), RN (linked), Title, Customer, Main Release, Feature Release, SLA, State, Developer, and Project.
 
@@ -30,11 +30,11 @@ Tables are sorted alphabetically by product, then by state: Completed → Ready 
    123456, 123457, 123458, ...
    ```
 
-3. Copilot will fetch the tasks and generate `sprint-review.html` in the repo root.
+3. Copilot will fetch the tasks and generate `index.html` in the repo root.
 
-4. Open `sprint-review.html` in a browser and copy the table(s) into PowerPoint.
+4. Open `index.html` in a browser and copy the slide(s) into PowerPoint.
 
-> `sprint-review.html` is git-ignored and never committed.
+> `index.html` is git-ignored and never committed.
 
 ## How the Product column is derived
 
@@ -49,5 +49,5 @@ Tables are sorted alphabetically by product, then by state: Completed → Ready 
 
 | File | Description |
 |---|---|
-| `scripts/generate_sprint_review.py` | Reads Skyline API JSON from stdin, writes `sprint-review.html` |
+| `scripts/generate_sprint_review.py` | Reads Skyline API JSON from stdin, writes `index.html` |
 | `.github/copilot-instructions.md` | Instructions that guide Copilot's behaviour in this repo |

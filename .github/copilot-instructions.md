@@ -2,13 +2,13 @@
 
 ## Purpose
 
-This repository supports **sprint review preparation**. When asked to prepare a sprint review, fetch tasks from the Skyline API and write a formatted HTML page (`sprint-review.html`) ready for copy-paste into PowerPoint.
+This repository supports **sprint review preparation**. When asked to prepare a sprint review, fetch tasks from the Skyline API and write a formatted HTML page (`index.html`) ready for copy-paste into PowerPoint.
 
 ## Sprint Review Workflow
 
 1. The user provides a list of task IDs.
 2. Use `skylineAPI-get_tasks_by_id_raw` to fetch all tasks in one call and save the output to a temp file.
-3. Pipe the saved JSON through `scripts/generate_sprint_review.py` to produce `sprint-review.html` (git-ignored — never committed):
+3. Pipe the saved JSON through `scripts/generate_sprint_review.py` to produce `index.html` (git-ignored — never committed):
    ```
    Get-Content <temp-file> | python scripts/generate_sprint_review.py
    ```
@@ -54,7 +54,7 @@ Rows with a state not in the list above sort last. Rows with an empty Product so
 
 ## HTML Output Requirements
 
-- Write a complete HTML page to `sprint-review.html` in the repo root — no markdown, no explanation in the output
+- Write a complete HTML page to `index.html` in the repo root — no markdown, no explanation in the output
 - Structure: `<!DOCTYPE html>` + `<html lang="en">` + `<head>` (UTF-8 charset, title "Sprint Review") + `<body style="font-family:sans-serif;padding:24px">`
 - **One table per product**, each preceded by an `<h2>` with the product name. Tasks with no product go in a final section titled "(No product)"
 - The **Product** column is omitted from the table (it's conveyed by the heading)
