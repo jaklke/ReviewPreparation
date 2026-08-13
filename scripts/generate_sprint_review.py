@@ -53,7 +53,7 @@ def link(url, text):
         return ""
     return (
         f'<a href="{escape(url)}" target="_blank" '
-        'style="color:#0063b1;text-decoration:none;font-weight:600">'
+        'style="color:#0063b1;text-decoration:none">'
         f"{escape(str(text))}</a>"
     )
 
