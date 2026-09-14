@@ -69,7 +69,7 @@ Rows with a state not in the list above sort last. Rows with an empty Product so
 
 Used to prepare a **sprint planning meeting** by pulling the top 15 backlog tasks assigned to a specific user.
 
-1. Call the Skyline API GET endpoint `api/tasks/byassignedto?users=8859&excludedStatus= Closed` (via the generic `api_get` MCP tool), save the raw JSON output to a temp file.
+1. Call the Skyline API GET endpoint `api/tasks/byassignedto?users=8859&excludedStatus=[Closed, Not Started, In Progress, Waiting]` (via the generic `api_get` MCP tool), save the raw JSON output to a temp file.
 2. Pipe the saved JSON through `scripts/generate_sprint_planning.py` to produce `sprint-planning.html` (git-ignored — never committed):
    ```
    Get-Content <temp-file> | python scripts/generate_sprint_planning.py
