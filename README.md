@@ -50,4 +50,11 @@ Tables are sorted alphabetically by product, then by state: Completed → Ready 
 | File | Description |
 |---|---|
 | `scripts/generate_sprint_review.py` | Reads Skyline API JSON from stdin, writes `index.html` |
+| `scripts/generate_sprint_planning.py` | Reads Skyline API JSON from stdin, writes `sprint-planning.html` (top 15 backlog tasks) |
 | `.github/copilot-instructions.md` | Instructions that guide Copilot's behaviour in this repo |
+
+## Sprint Planning Workflow
+
+Ask Copilot to prepare the sprint planning meeting. It fetches backlog tasks assigned to a fixed user ID, filters them (status `To Be Scheduled` + allowed labels), sorts by `BusinessValue` descending, and writes the top 15 to `sprint-planning.html` as a table with Task, Link, Title, State, Dev estimate, QA estimate, and Release/Customer/SLA columns.
+
+> `sprint-planning.html` is git-ignored and never committed.
