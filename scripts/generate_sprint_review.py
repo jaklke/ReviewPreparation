@@ -76,7 +76,7 @@ def make_table(group_rows, std, sth):
             rn_link,
             escape(str(title)),
             escape(str(customer)),
-            escape(str(main_rel)),
+            escape(str(main_rel)).replace(";", "<br>"),
             escape(str(feat_rel)),
             escape(str(sla)),
             escape(str(state)),
@@ -111,7 +111,10 @@ def main():
         feat_rel = t.get("FeatureReleaseVersion", "") or ""
         sla = t.get("SlaLevel", "") or ""
         state = t.get("Status", "") or ""
-        dev_full = (t.get("Developer") or {}).get("Name", "") or ""
+        dev_full = ""
+        if state == "In Progress":
+            dev_full = (t.get("Assignee") or {}).get("Name", "") or ""
+        dev_full = dev_full or (t.get("Developer") or {}).get("Name", "") or ""
         dev = dev_full.split()[0] if dev_full else ""
         proj = (t.get("Project") or {}).get("Title", "") or ""
         product = get_product(t)
