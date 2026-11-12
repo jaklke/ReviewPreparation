@@ -106,6 +106,8 @@ def main():
         tid = t.get("ID", "")
         rn = t.get("ReleaseNote", "") or ""
         title = t.get("Title", "")
+        if t.get("Type") == "Software Issue":
+            title = f"🐞 {title}"
         customer = (t.get("Customer") or {}).get("Name", "") or ""
         main_rel = t.get("MainReleaseVersion", "") or ""
         feat_rel = t.get("FeatureReleaseVersion", "") or ""

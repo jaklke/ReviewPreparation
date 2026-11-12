@@ -21,6 +21,11 @@ KEEP_STATUS = "To Be Scheduled"
 TOP_N = 15
 
 ESTIMATE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)")
+LABELED_ESTIMATE_RE = re.compile(
+    r"(\d+(?:\.\d+)?)\s*(?:DEV|DEVELOPMENT)\s*\+\s*"
+    r"(\d+(?:\.\d+)?)\s*QA",
+    re.IGNORECASE,
+)
 TAG_RE = re.compile(r"<[^>]+>")
 
 
@@ -47,7 +52,7 @@ def extract_estimates(description):
     if not description:
         return "", ""
     text = TAG_RE.sub(" ", description)
-    match = ESTIMATE_RE.search(text)
+    match = LABELED_ESTIMATE_RE.search(text) or ESTIMATE_RE.search(text)
     if not match:
         return "", ""
     return match.group(1), match.group(2)
@@ -75,7 +80,7 @@ def make_row(task, std):
     dev_estimate, qa_estimate = extract_estimates(task.get("Description", ""))
 
     # Target release, customer, SLA are only shown when present; internal customer/SLA are not useful.
-    target_release = task.get("MainReleaseVersion") or task.get("FeatureReleaseVersion") or ""
+    target_release = task.get("TargetRelease") or ""
     customer = (task.get("Customer") or {}).get("Name", "") or ""
     if customer == "Skyline Communications":
         customer = ""
@@ -90,6 +95,7 @@ def make_row(task, std):
         escape(str(tid)),
         link(url, "Click"),
         escape(title),
+        "",
         escape(state),
         "",
         escape(dev_estimate),
@@ -113,7 +119,7 @@ def main():
     tasks.sort(key=lambda t: t.get("BusinessValue") or 0, reverse=True)
     tasks = tasks[:TOP_N]
 
-    headers = ["Task", "Link", "Title", "State", "", "Dev estimate", "", "QA estimate", "Release / Customer / SLA"]
+    headers = ["Task", "Link", "Title", "", "State", "", "Dev estimate", "", "QA estimate", "Release / Customer / SLA"]
     thead = "<thead><tr>" + "".join(f'<th style="{sth}">{escape(h)}</th>' for h in headers) + "</tr></thead>"
     tbody = "<tbody>" + "".join(make_row(t, std) for t in tasks) + "</tbody>"
     table = f'<table style="border-collapse:collapse;margin-bottom:32px">{thead}{tbody}</table>'
